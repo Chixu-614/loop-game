@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1a1020">
+  <link rel="manifest" href="manifest.json">
+  <title>无法离开的房间</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game">
+
+    <!-- ═══ 标题页（伪登录页）═══ -->
+    <div id="title-screen">
+      <div class="login-box">
+        <div class="login-header">
+          <div class="login-logo">✿</div>
+          <div class="login-title">0413的空间</div>
+          <div class="login-subtitle">— 欢迎来到我的空间 —</div>
+        </div>
+        <div class="login-divider"></div>
+        <div class="login-status">
+          <div class="login-status-row"><span class="login-status-key">空间主人</span><span class="login-status-val">0413</span></div>
+          <div class="login-status-row"><span class="login-status-key">当前状态</span><span class="login-status-val">离开</span></div>
+          <div class="login-status-row"><span class="login-status-key">最后登录</span><span class="login-status-val">2008-04-13</span></div>
+        </div>
+        <div class="login-quote">「这里什么都没变。等你回来看。」</div>
+        <div id="login-btn" class="login-btn">进入空间</div>
+        <div class="login-footer">
+          <div class="login-counter">你是第 <span id="visitor-count">8472</span> 位访客</div>
+          <div class="login-copy">© 2008 此空间已被访问 8472 次</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ 公告栏 ═══ -->
+    <div id="bulletin-bar">
+      <div class="bulletin-content">
+        <span id="bulletin-text">★ 欢迎来到我的空间 ★ 请文明留言 ★ 你是第 1 位访客 ★</span>
+      </div>
+    </div>
+
+    <!-- ═══ 退出按钮 ═══ -->
+    <div id="exit-btn">× 关闭</div>
+
+    <!-- ═══ 个人资料条 ═══ -->
+    <div id="profile-bar">
+      <div class="profile-avatar"></div>
+      <div class="profile-info">
+        <div class="profile-name">无法离开的房间</div>
+        <div class="profile-sign">签名：你每次都会回来</div>
+      </div>
+    </div>
+
+    <!-- ═══ Tab 导航 ═══ -->
+    <div id="tab-nav">
+      <div class="tab-btn active" data-tab="home">主页</div>
+      <div class="tab-btn" data-tab="talks">说说</div>
+      <div class="tab-btn" data-tab="board">留言</div>
+      <div class="tab-btn" data-tab="info">信息</div>
+    </div>
+
+    <!-- ═══ Tab 内容区 ═══ -->
+    <div id="tab-content">
+
+      <!-- 主页 -->
+      <div class="tab-pane active" id="pane-home">
+        <div class="placeholder-room">
+          <div class="ph-item" data-item="door">
+            <div class="ph-door-body"></div>
+            <div class="ph-label">门</div>
+          </div>
+          <div class="ph-item" data-item="doorlock" id="doorlock-item" style="display:none;">
+            <div class="ph-lock-body"></div>
+            <div class="ph-label">锁</div>
+          </div>
+          <div class="ph-item" data-item="window">
+            <div class="ph-window-body"></div>
+            <div class="ph-label">窗户</div>
+          </div>
+          <div class="ph-item" data-item="mirror">
+            <div class="ph-mirror-body"></div>
+            <div class="ph-label">镜子</div>
+          </div>
+          <div class="ph-item" data-item="note">
+            <div class="ph-note-body"></div>
+            <div class="ph-label">纸条</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 说说 -->
+      <div class="tab-pane" id="pane-talks">
+        <div class="talk-list" id="talk-list"></div>
+      </div>
+
+      <!-- 留言板 -->
+      <div class="tab-pane" id="pane-board">
+        <div class="board-input-area">
+          <input type="text" id="board-input" placeholder="写点什么留言……" autocomplete="off">
+          <div id="board-send-btn">留言</div>
+        </div>
+        <div class="board-list" id="board-list"></div>
+      </div>
+
+      <!-- 信息栏 -->
+      <div class="tab-pane" id="pane-info">
+        <div class="info-card" id="info-card">
+          <div class="info-card-header">
+            <div class="info-avatar"></div>
+            <div class="info-title">个人资料</div>
+          </div>
+          <div class="info-fields" id="info-fields"></div>
+        </div>
+        <!-- 隐藏装扮 -->
+        <div id="dressup-section" style="display:none;">
+          <div class="dressup-header">✿ 空间装扮 ✿</div>
+          <div class="dressup-list" id="dressup-list"></div>
+        </div>
+        <!-- 线索收集册 -->
+        <div id="clue-collection-section">
+          <div class="clue-collection-header">✿ 线索收集 ✿</div>
+          <div class="clue-collection-grid" id="clue-collection-grid"></div>
+        </div>
+        <!-- 重置进度 -->
+        <div id="reset-section">
+          <div id="reset-btn">重置全部进度</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ═══ 对话框 ═══ -->
+    <div id="dialog-box">
+      <div id="speaker-tag">房间</div>
+      <div id="dialog-text"></div>
+      <div id="dialog-continue">▼</div>
+      <div id="dialog-options"></div>
+    </div>
+
+    <!-- ═══ 状态栏 ═══ -->
+    <div id="status-bar">
+      <div id="loop-counter">LOOP 00</div>
+      <div id="visitor-counter">访客：001</div>
+    </div>
+
+    <!-- ═══ 黑屏过渡层 ═══ -->
+    <div id="fade-overlay">
+      <div id="fade-text"></div>
+    </div>
+
+    <!-- ═══ 故障层 ═══ -->
+    <div id="glitch-layer"></div>
+
+    <!-- ═══ 密码锁键盘 ═══ -->
+    <div id="doorlock-pad" style="display:none;">
+      <div class="lock-title">输入密码</div>
+      <div class="lock-display"></div>
+      <div class="lock-keypad">
+        <button class="lock-key" data-n="1">1</button>
+        <button class="lock-key" data-n="2">2</button>
+        <button class="lock-key" data-n="3">3</button>
+        <button class="lock-key" data-n="4">4</button>
+        <button class="lock-key" data-n="5">5</button>
+        <button class="lock-key" data-n="6">6</button>
+        <button class="lock-key" data-n="7">7</button>
+        <button class="lock-key" data-n="8">8</button>
+        <button class="lock-key" data-n="9">9</button>
+        <button class="lock-key" data-n="-1">　</button>
+        <button class="lock-key" data-n="0">0</button>
+        <button class="lock-key del" data-n="del">←</button>
+      </div>
+      <div class="lock-close">取消</div>
+    </div>
+
+    <!-- ═══ 纸条写字 ═══ -->
+    <div id="note-write-pad" style="display:none;">
+      <div class="note-title">写点什么</div>
+      <textarea class="note-textarea" placeholder="纸条上该写什么呢……" maxlength="50"></textarea>
+      <div class="note-actions">
+        <div class="note-write-btn">写下</div>
+        <div class="note-write-close">算了</div>
+      </div>
+    </div>
+
+    <!-- ═══ 线索卡片浮现层 ═══ -->
+    <div id="clue-card-popup"></div>
+
+    <!-- ═══ 序章过渡页 ═══ -->
+    <div id="prologue-overlay" class="hide">
+      <div class="prologue-text" id="prologue-text"></div>
+      <div class="prologue-skip" id="prologue-skip">[ 跳过 ]</div>
+    </div>
+
+    <!-- ═══ 重置确认弹窗 ═══ -->
+    <div id="reset-confirm">
+      <div class="reset-confirm-box">
+        <div class="reset-confirm-text">
+          要把这里的一切都忘掉吗？<small>所有进度、线索、留言都将清除，无法恢复</small>
+        </div>
+        <div class="reset-confirm-btns">
+          <div id="reset-yes">忘了</div>
+          <div id="reset-no">留下</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ 结局尾声公告 ═══ -->
+    <div id="ending-notice" style="display:none;">
+      <div class="ending-notice-box">
+        <div class="ending-notice-header">★ 系统公告 ★</div>
+        <div class="ending-notice-body" id="ending-notice-text"></div>
+        <div class="ending-notice-footer" id="ending-notice-close">[ 关闭空间 ]</div>
+      </div>
+    </div>
+
+  </div>
+  <script>
+    // URL后门：访问 ?reset=1 自动清存档
+    if (location.search.includes('reset=1')) {
+      try { localStorage.removeItem('loopRoom_save'); } catch(e) {}
+      history.replaceState(null, '', location.pathname);
+    }
+    /* preview后门已移除 */
+    /* ending后门已移除 */
+
+  </script>
+  <script src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
