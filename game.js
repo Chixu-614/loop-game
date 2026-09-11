@@ -101,7 +101,7 @@ function startBgm() {
   bgmPlaying = true;
 
   bgmGain = ctx.createGain();
-  bgmGain.gain.value = 0.025;
+  bgmGain.gain.value = 0.08;
   bgmGain.connect(ctx.destination);
 
   // 低频持续音 drone
@@ -140,7 +140,7 @@ function startBgm() {
     if (!bgmPlaying) return;
     const freq = melodyNotes[melodyIdx % melodyNotes.length];
     melodyIdx++;
-    playTone(freq, 1.5, 'sine', 0.02, 0);
+    playTone(freq, 1.5, 'sine', 0.06, 0);
   }, 3000);
 
   bgmNodes = { droneOsc, drone2, lfo, melodyTimer };
