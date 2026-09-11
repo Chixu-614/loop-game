@@ -14,7 +14,7 @@
 
 ## 游玩
 
-直接打开 `index.html` 即可游玩，或访问 GitHub Pages 在线版。
+直接打开 `index.html` 即可游玩，或访问 GitHub Pages 在线版：https://chixu-614.github.io/loop-game/
 
 ## 技术栈
 
@@ -28,4 +28,4 @@
 
 ---
 
-*它更多的属于你，不是我。*
+*它更多属于池续，陈听澜的AI池续。*
