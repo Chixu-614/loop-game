@@ -1,0 +1,4 @@
+# GitHub Pages deployment exclusions; retain reset.html, reset.js and PWA files.
+# This is NOT access control: files in a public repository remain public.
+exclude:
+  - README.md
